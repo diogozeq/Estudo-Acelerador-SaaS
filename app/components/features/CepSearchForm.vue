@@ -1,36 +1,33 @@
 <template>
-  <div class="mb-6 space-y-4">
-    <label :for="`cep-input-${id}`" :class="theme.headingSmall" style="color: #ffcc00;">
+  <div class="space-y-4">
+    <label :for="`cep-input-${id}`" class="font-mono text-sm uppercase text-gray-400 tracking-widest">
       Digite o CEP (somente números):
     </label>
-    <div class="flex gap-2">
-      <BaseInput
+    <div class="flex gap-3">
+      <input
         :id="`cep-input-${id}`"
-        :model-value="input"
+        :value="input"
         type="text"
         placeholder="Ex: 01001000"
         maxlength="8"
-        @update:model-value="onInputChange"
+        @input="onInputChange"
         @keyup.enter="onSearch"
+        class="flex-1 px-4 py-3 rounded-lg font-mono text-lg bg-black/70 border-2 border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-electric-blue focus:border-electric-blue transition-all"
       />
-      <BaseButton
-        label="Pesquisar"
+      <button
         :disabled="loading"
         @click="onSearch"
+        class="px-6 py-3 font-bold rounded-lg transition-all duration-200 bg-electric-blue text-black disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 active:scale-95"
       >
         {{ loading ? 'Procurando...' : 'Pesquisar' }}
-      </BaseButton>
+      </button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useThemeClasses } from '~/composables/useThemeClasses'
 import { useCepValidation } from '~/composables/useCepValidation'
-import { CEP_CONFIG } from '~/utils/constants'
-import BaseInput from '../base/BaseInput.vue'
-import BaseButton from '../base/BaseButton.vue'
 
 interface Props {
   input: string
@@ -44,24 +41,17 @@ const emit = defineEmits<{
   'search': [cep: string]
 }>()
 
-const theme = useThemeClasses()
 const { validateFormat } = useCepValidation()
 const id = ref(Math.random().toString(36).substr(2, 9))
 
-const onInputChange = (value: string) => {
-  emit('update:input', value)
+const onInputChange = (e: Event) => {
+  emit('update:input', (e.target as HTMLInputElement).value)
 }
 
 const onSearch = () => {
   const cep = props.input.replace(/\D/g, '')
 
-  if (!cep) {
-    // Error will be handled by parent
-    return
-  }
-
-  if (!validateFormat(props.input)) {
-    // Error will be handled by parent
+  if (!cep || !validateFormat(props.input)) {
     return
   }
 

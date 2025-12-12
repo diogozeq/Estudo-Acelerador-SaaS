@@ -1,18 +1,19 @@
 <template>
-  <div v-if="error" :class="['mb-6 p-4 rounded-lg', theme.bgError, 'border-2', theme.borderError, theme.colorError]">
-    <p class="font-semibold">❌ Erro:</p>
-    <p>{{ error }}</p>
+  <div v-if="error" class="brushed-steel rounded-lg p-6 border-2 border-red-600/50 mb-6">
+    <div class="flex items-start gap-3">
+      <span class="material-symbols-outlined text-red-500 mt-1">error</span>
+      <div class="flex flex-col">
+        <p class="font-mono text-sm uppercase text-red-500 tracking-widest">Erro</p>
+        <p class="font-mono text-gray-300 mt-1">{{ error }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useThemeClasses } from '~/composables/useThemeClasses'
-
 interface Props {
   error: string | null
 }
 
 defineProps<Props>()
-
-const theme = useThemeClasses()
 </script>
