@@ -6,10 +6,10 @@
         <div class="flex flex-col gap-4">
           <!-- User Profile -->
           <div class="flex items-center gap-3">
-            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" :style="{ backgroundImage: `url('${user.avatar}')` }" />
+            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" :style="{ backgroundImage: `url('${appState.user.value.avatar}')` }" />
             <div class="flex flex-col">
-              <h1 class="text-white text-base font-medium leading-normal">{{ user.name }}</h1>
-              <p class="text-[#90adcb] text-sm font-normal leading-normal">{{ user.company }}</p>
+              <h1 class="text-white text-base font-medium leading-normal">{{ appState.user.value.name }}</h1>
+              <p class="text-[#90adcb] text-sm font-normal leading-normal">{{ appState.user.value.company }}</p>
             </div>
           </div>
 
@@ -21,11 +21,7 @@
             </NuxtLink>
             <NuxtLink to="/cep" class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/10 hover:text-white transition-colors duration-200 rounded-md">
               <span class="material-symbols-outlined">location_on</span>
-              <p class="text-sm font-medium leading-normal">CEP v1</p>
-            </NuxtLink>
-            <NuxtLink to="/cep2" class="flex items-center gap-3 px-3 py-2 text-white/70 hover:bg-white/10 hover:text-white transition-colors duration-200 rounded-md">
-              <span class="material-symbols-outlined">search</span>
-              <p class="text-sm font-medium leading-normal">CEP v2</p>
+              <p class="text-sm font-medium leading-normal">CEP Lookup</p>
             </NuxtLink>
           </nav>
         </div>
@@ -34,11 +30,11 @@
         <div class="flex flex-col gap-2 p-2 brushed-steel rounded-lg border-2 border-black/50 shadow-inner">
           <h3 class="text-center font-retro text-lg tracking-wider text-gray-300">GIGAWATTS</h3>
           <div class="w-full bg-black/50 rounded-full h-4 border border-gray-700 shadow-inner">
-            <div class="bg-gradient-to-r from-yellow-500 via-orange-500 to-red-600 h-full rounded-full flex items-center justify-end transition-all duration-300" :style="{ width: `${gigawattsPercentage}%` }">
+            <div class="bg-gradient-to-r from-yellow-500 via-orange-500 to-red-600 h-full rounded-full flex items-center justify-end transition-all duration-300" :style="{ width: `${appState.gigawattsPercentage.value}%` }">
               <span class="material-symbols-outlined text-xl text-yellow-200 -mr-2 drop-shadow-[0_0_4px_rgba(251,255,0,0.8)]">bolt</span>
             </div>
           </div>
-          <p class="text-center font-mono text-sm text-yellow-300">{{ gigawatts.toFixed(2) }} GW</p>
+          <p class="text-center font-mono text-sm text-yellow-300">{{ appState.gigawatts.value.toFixed(2) }} GW</p>
         </div>
       </aside>
 
@@ -56,12 +52,10 @@
           </div>
           <div class="flex flex-1 justify-end gap-4 items-center">
             <div class="flex items-center gap-2 rounded-lg bg-black p-2 border border-gray-700">
-              <p class="font-led text-3xl text-electric-blue tabular-nums">{{ speed }}</p>
+              <p class="font-led text-3xl text-electric-blue tabular-nums">{{ appState.speed.value }}</p>
               <span class="text-sm font-mono text-gray-400">MPH</span>
             </div>
-            <button @click="startTrip" class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 industrial-button font-bold tracking-wider">
-              <span class="truncate">START TRIP</span>
-            </button>
+            <BaseButton label="START TRIP" @click="appState.startTrip()" />
           </div>
         </header>
 
@@ -71,18 +65,18 @@
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 p-4 rounded-lg brushed-steel border-2 border-black/50">
             <div class="flex flex-col items-center gap-2 rounded-md bg-black/70 p-4 border border-gray-700 shadow-inner">
               <p class="font-mono text-xs uppercase text-red-500 tracking-widest">Destination Time</p>
-              <div class="font-led text-4xl text-red-500 led-text-red">{{ destinationTime.date }}</div>
-              <div class="font-led text-2xl text-red-500 led-text-red">{{ destinationTime.time }}</div>
+              <div class="font-led text-4xl text-red-500 led-text-red">{{ appState.destinationTime.value.date }}</div>
+              <div class="font-led text-2xl text-red-500 led-text-red">{{ appState.destinationTime.value.time }}</div>
             </div>
             <div class="flex flex-col items-center gap-2 rounded-md bg-black/70 p-4 border border-gray-700 shadow-inner">
               <p class="font-mono text-xs uppercase text-green-400 tracking-widest">Present Time</p>
-              <div class="font-led text-4xl text-green-400 led-text-green">{{ currentTime.date }}</div>
-              <div class="font-led text-2xl text-green-400 led-text-green">{{ currentTime.time }}</div>
+              <div class="font-led text-4xl text-green-400 led-text-green">{{ appState.currentTime.value.date }}</div>
+              <div class="font-led text-2xl text-green-400 led-text-green">{{ appState.currentTime.value.time }}</div>
             </div>
             <div class="flex flex-col items-center gap-2 rounded-md bg-black/70 p-4 border border-gray-700 shadow-inner">
               <p class="font-mono text-xs uppercase text-yellow-400 tracking-widest">Last Time Departed</p>
-              <div class="font-led text-4xl text-yellow-400 led-text-yellow">{{ lastDeparture.date }}</div>
-              <div class="font-led text-2xl text-yellow-400 led-text-yellow">{{ lastDeparture.time }}</div>
+              <div class="font-led text-4xl text-yellow-400 led-text-yellow">{{ appState.lastDeparture.value.date }}</div>
+              <div class="font-led text-2xl text-yellow-400 led-text-yellow">{{ appState.lastDeparture.value.time }}</div>
             </div>
           </div>
 
@@ -92,7 +86,7 @@
             <div class="lg:col-span-2 flex flex-col gap-4">
               <h2 class="font-retro italic text-2xl tracking-wide chrome-gradient px-4 pb-3 pt-5">Timeline Projects</h2>
               
-              <div v-for="project in projects" :key="project.id" class="brushed-steel rounded-lg p-4 border border-black/50">
+              <div v-for="project in appState.projects.value" :key="project.id" class="brushed-steel rounded-lg p-4 border border-black/50">
                 <div class="flex flex-col items-stretch justify-start rounded-lg xl:flex-row xl:items-start">
                   <div class="w-full xl:w-1/3 bg-center bg-no-repeat aspect-video bg-cover rounded-lg" :style="{ backgroundImage: `url('${project.image}')` }" />
                   <div class="flex w-full min-w-72 grow flex-col items-stretch justify-start gap-3 py-4 xl:px-4 font-mono text-sm text-phosphor-green">
@@ -100,9 +94,7 @@
                     <p class="text-gray-300">{{ project.description }}</p>
                     <div class="flex items-end gap-3 justify-between">
                       <p class="text-gray-400">Target: {{ project.target }}</p>
-                      <button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-md h-8 px-4 bg-electric-blue text-black text-sm font-bold tracking-wider hover:bg-electric-blue/90 transition-colors">
-                        <span class="truncate">View Details</span>
-                      </button>
+                      <BaseButton label="View Details" variant="secondary" />
                     </div>
                   </div>
                 </div>
@@ -124,7 +116,7 @@
               <div class="brushed-steel rounded-lg p-6 flex flex-col border border-black/50">
                 <h3 class="font-retro italic text-lg tracking-wide chrome-gradient mb-4">System Status & Alerts</h3>
                 <div class="flex flex-col gap-4 font-mono text-sm">
-                  <div v-for="alert in alerts" :key="alert.message" class="flex items-start gap-3">
+                  <div v-for="alert in appState.alerts.value" :key="alert.message" class="flex items-start gap-3">
                     <span :class="['material-symbols-outlined mt-1', alertColor(alert.type)]">{{ alert.icon }}</span>
                     <div class="flex flex-col">
                       <p class="text-white">{{ alert.message }}</p>
@@ -158,9 +150,14 @@
 </template>
 
 <script setup lang="ts">
+import { useAppState } from '~/composables/useAppState'
+import { useThemeClasses } from '~/composables/useThemeClasses'
+import BaseButton from '~/components/base/BaseButton.vue'
+
 definePageMeta({ title: 'Painel do DeLorean' })
 
-const { user, speed, gigawatts, gigawattsPercentage, destinationTime, currentTime, lastDeparture, alerts, projects, startTrip } = useAppState()
+const appState = useAppState()
+const theme = useThemeClasses()
 
 const alertColor = (type: string) => ({
   success: 'text-green-400',
