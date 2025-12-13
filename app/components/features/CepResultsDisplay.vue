@@ -1,92 +1,72 @@
 <template>
-  <div v-if="result" class="space-y-4">
-    <BaseCard title="Endereço Encontrado" variant="highlight">
-      <div :class="theme.gridLayout">
-        <!-- CEP -->
-        <div :class="[theme.fieldContainer, theme.bgDark]">
-          <p :class="theme.textSmall">CEP</p>
-          <p :class="[theme.textBase, 'font-mono font-bold', theme.colorPrimary]">
-            {{ formatCepDisplay(result.cep) }}
-          </p>
-        </div>
-
-        <!-- Logradouro -->
-        <div :class="[theme.fieldContainer, theme.bgDark]">
-          <p :class="theme.textSmall">Logradouro</p>
-          <p :class="[theme.textBase, 'font-bold', theme.colorAccent]">
-            {{ result.logradouro || '—' }}
-          </p>
-        </div>
-
-        <!-- Bairro -->
-        <div :class="[theme.fieldContainer, theme.bgDark]">
-          <p :class="theme.textSmall">Bairro</p>
-          <p :class="[theme.textBase, 'font-bold', theme.colorAccent]">
-            {{ result.bairro || '—' }}
-          </p>
-        </div>
-
-        <!-- Localidade -->
-        <div :class="[theme.fieldContainer, theme.bgDark]">
-          <p :class="theme.textSmall">Localidade</p>
-          <p :class="[theme.textBase, 'font-bold', theme.colorAccent]">
-            {{ result.localidade || '—' }}
-          </p>
-        </div>
-
-        <!-- UF -->
-        <div :class="[theme.fieldContainer, theme.bgDark]">
-          <p :class="theme.textSmall">Estado (UF)</p>
-          <p :class="[theme.textBase, 'font-bold', theme.colorPrimary]">
-            {{ result.uf || '—' }}
-          </p>
-        </div>
-
-        <!-- Região -->
-        <div :class="[theme.fieldContainer, theme.bgDark]">
-          <p :class="theme.textSmall">Região</p>
-          <p :class="[theme.textBase, 'font-bold', theme.colorPrimary]">
-            {{ result.regiao || '—' }}
-          </p>
-        </div>
-
-        <!-- DDD -->
-        <div :class="[theme.fieldContainer, theme.bgDark]">
-          <p :class="theme.textSmall">DDD</p>
-          <p :class="[theme.textBase, 'font-bold', theme.colorAccent]">
-            {{ result.ddd || '—' }}
-          </p>
-        </div>
-
-        <!-- IBGE -->
-        <div :class="[theme.fieldContainer, theme.bgDark]">
-          <p :class="theme.textSmall">IBGE</p>
-          <p :class="[theme.textBase, 'font-bold', theme.colorAccent]">
-            {{ result.ibge || '—' }}
-          </p>
-        </div>
+  <div v-if="result" class="brushed-steel rounded-lg p-6 border-2 border-black/50">
+    <h3 class="font-retro italic text-2xl tracking-wide chrome-gradient mb-6">Endereço Encontrado</h3>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- CEP -->
+      <div class="flex flex-col items-stretch justify-start rounded-lg bg-black/70 p-4 border border-gray-700 shadow-inner">
+        <p class="font-mono text-xs uppercase text-gray-500 tracking-widest">CEP</p>
+        <p class="font-led text-2xl text-electric-blue mt-2">{{ formatCepDisplay(result.cep) }}</p>
       </div>
 
-      <!-- Complemento -->
-      <div v-if="result.complemento" :class="['mt-4', theme.fieldContainer, theme.bgDark]">
-        <p :class="theme.textSmall">Complemento</p>
-        <p :class="[theme.textBase, theme.colorAccent]">{{ result.complemento }}</p>
+      <!-- Logradouro -->
+      <div class="flex flex-col items-stretch justify-start rounded-lg bg-black/70 p-4 border border-gray-700 shadow-inner">
+        <p class="font-mono text-xs uppercase text-gray-500 tracking-widest">Logradouro</p>
+        <p class="font-mono text-white mt-2">{{ result.logradouro || '—' }}</p>
       </div>
-    </BaseCard>
+
+      <!-- Bairro -->
+      <div class="flex flex-col items-stretch justify-start rounded-lg bg-black/70 p-4 border border-gray-700 shadow-inner">
+        <p class="font-mono text-xs uppercase text-gray-500 tracking-widest">Bairro</p>
+        <p class="font-mono text-white mt-2">{{ result.bairro || '—' }}</p>
+      </div>
+
+      <!-- Localidade -->
+      <div class="flex flex-col items-stretch justify-start rounded-lg bg-black/70 p-4 border border-gray-700 shadow-inner">
+        <p class="font-mono text-xs uppercase text-gray-500 tracking-widest">Localidade</p>
+        <p class="font-mono text-white mt-2">{{ result.localidade || '—' }}</p>
+      </div>
+
+      <!-- UF -->
+      <div class="flex flex-col items-stretch justify-start rounded-lg bg-black/70 p-4 border border-gray-700 shadow-inner">
+        <p class="font-mono text-xs uppercase text-gray-500 tracking-widest">Estado (UF)</p>
+        <p class="font-led text-2xl text-yellow-400 mt-2">{{ result.uf || '—' }}</p>
+      </div>
+
+      <!-- Região -->
+      <div class="flex flex-col items-stretch justify-start rounded-lg bg-black/70 p-4 border border-gray-700 shadow-inner">
+        <p class="font-mono text-xs uppercase text-gray-500 tracking-widest">Região</p>
+        <p class="font-mono text-white mt-2">{{ result.regiao || '—' }}</p>
+      </div>
+
+      <!-- DDD -->
+      <div class="flex flex-col items-stretch justify-start rounded-lg bg-black/70 p-4 border border-gray-700 shadow-inner">
+        <p class="font-mono text-xs uppercase text-gray-500 tracking-widest">DDD</p>
+        <p class="font-led text-2xl text-green-400 mt-2">{{ result.ddd || '—' }}</p>
+      </div>
+
+      <!-- IBGE -->
+      <div class="flex flex-col items-stretch justify-start rounded-lg bg-black/70 p-4 border border-gray-700 shadow-inner">
+        <p class="font-mono text-xs uppercase text-gray-500 tracking-widest">IBGE</p>
+        <p class="font-mono text-white mt-2">{{ result.ibge || '—' }}</p>
+      </div>
+    </div>
+
+    <!-- Complemento -->
+    <div v-if="result.complemento" class="mt-4 flex flex-col items-stretch justify-start rounded-lg bg-black/70 p-4 border border-gray-700 shadow-inner">
+      <p class="font-mono text-xs uppercase text-gray-500 tracking-widest">Complemento</p>
+      <p class="font-mono text-white mt-2">{{ result.complemento }}</p>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useThemeClasses } from '~/composables/useThemeClasses'
 import { formatCepDisplay } from '~/utils/cepFormatter'
 import type { CepResponse } from '~/types/cep'
-import BaseCard from '../base/BaseCard.vue'
 
 interface Props {
   result: CepResponse | null
 }
 
 defineProps<Props>()
-
-const theme = useThemeClasses()
 </script>
